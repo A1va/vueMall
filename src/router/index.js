@@ -8,34 +8,34 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: '/login'
+    redirect: '/home',
   },
   {
     path: '/login',
-    component: Login
+    component: Login,
   },
   {
     path: '/home',
-    component: Home
-  }
+    component: Home,
+  },
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
 })
 
 /**
  * 挂载路由导航守卫
-  * to 将要访问的路径
-  * from 从哪个路径跳转而来
-  * next 是一个函数, 处理跳转
-  * next() 放行; next('/login') 强制返回 Login
-  */
+ * to 将要访问的路径
+ * from 从哪个路径跳转而来
+ * next 是一个函数, 处理跳转
+ * next() 放行; next('/login') 强制返回 Login
+ */
 router.beforeEach((to, from, next) => {
   if (to.path === '/login') return next()
   // 获取 token
   const tokenStr = window.sessionStorage.getItem('token')
-  if(!tokenStr) return next('/login')
+  if (!tokenStr) return next('/login')
   return next()
 })
 
